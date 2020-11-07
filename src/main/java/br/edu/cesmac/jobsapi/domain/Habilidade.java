@@ -22,6 +22,26 @@ public class Habilidade {
     @JsonIgnoreProperties("habilidades")
     private List<Oportunidade> oportunidades;
 
+    @ManyToMany(mappedBy = "habilidades", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("habilidades")
+    private List<Pessoa>pessoas;
+
+    public List<Oportunidade> getOportunidades() {
+        return oportunidades;
+    }
+
+    public void setOportunidades(List<Oportunidade> oportunidades) {
+        this.oportunidades = oportunidades;
+    }
+
+    public List<Pessoa> getPessoas() {
+        return pessoas;
+    }
+
+    public void setPessoas(List<Pessoa> pessoas) {
+        this.pessoas = pessoas;
+    }
+
     public Long getIdHabilidade() {
         return idHabilidade;
     }
