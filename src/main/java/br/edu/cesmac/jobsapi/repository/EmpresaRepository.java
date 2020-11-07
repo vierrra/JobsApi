@@ -1,4 +1,9 @@
 package br.edu.cesmac.jobsapi.repository;
 
-public interface EmpresaRepository {
+import br.edu.cesmac.jobsapi.domain.Empresa;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface EmpresaRepository extends JpaRepository<Empresa, Long> {
 }
