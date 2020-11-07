@@ -1,6 +1,5 @@
 package br.edu.cesmac.jobsapi.resource;
 
-import br.edu.cesmac.jobsapi.domain.Oportunidade;
 import br.edu.cesmac.jobsapi.domain.Pessoa;
 import br.edu.cesmac.jobsapi.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/pessoa")
@@ -26,6 +26,15 @@ public class PessoaResource {
     }
 
     @GetMapping
+    private List<Pessoa> listAll() {
+        return pessoaService.listAll();
+    }
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Pessoa> searchById(@PathVariable("id") Long idPessoa) {
+        return pessoaService.searchById(idPessoa).map(pessoa -> ResponseEntity.ok(pessoa)).orElse(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping
     public void updatePessoa(@Validated @RequestBody Pessoa pessoa) {
         pessoaService.updatePessoa(pessoa);
     }

@@ -12,29 +12,36 @@ public class PessoaService {
     private PessoaRepository pessoaRepository;
 
     public PessoaService(PessoaRepository pessoaRepository) {
+
         this.pessoaRepository = pessoaRepository;
     }
 
     public Pessoa savePessoa(Pessoa Pessoa){
+
         return pessoaRepository.save(Pessoa);
     }
 
     public List<Pessoa> listAll() {
+
         return pessoaRepository.findAll();
     }
 
     public Optional<Pessoa> searchById(Long idPessoa) {
+
         return pessoaRepository.findById(idPessoa);
     }
 
     public void updatePessoa(Pessoa pessoa) {
+
         pessoaRepository.save(pessoa);
     }
     public void destroyPessoa(Pessoa pessoa) {
+
         pessoaRepository.delete(pessoa);
     }
 
     public void destroyById(Long idPessoa) {
+
         pessoaRepository.deleteById(idPessoa);
     }
 }
