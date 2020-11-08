@@ -29,6 +29,7 @@ public class PessoaResource {
     private List<Pessoa> listAll() {
         return pessoaService.listAll();
     }
+
     @GetMapping(value = "/{id}")
     public ResponseEntity<Pessoa> searchById(@PathVariable("id") Long idPessoa) {
         return pessoaService.searchById(idPessoa).map(pessoa -> ResponseEntity.ok(pessoa)).orElse(ResponseEntity.notFound().build());

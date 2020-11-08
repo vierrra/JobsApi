@@ -1,11 +1,12 @@
 package br.edu.cesmac.jobsapi.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.validator.constraints.UniqueElements;
+
+import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 public class Empresa {
@@ -17,10 +18,14 @@ public class Empresa {
     private String nomeEmpresa;
     @NotEmpty(message = "Obrigatório informar o email!")
     @Size(max = 150)
+    @Email(message = "Formato do email inválido")
+    @UniqueElements
     private String email;
     @NotEmpty(message = "Obrigatório informar o site!")
     @Size(max = 150)
     private String site;
+    @OneToMany(mappedBy = "empresa")
+    private List<Oportunidade> oportunidades;
 
     public Long getIdEmpresa() {
         return idEmpresa;
@@ -52,5 +57,13 @@ public class Empresa {
 
     public void setSite(String site) {
         this.site = site;
+    }
+
+    public List<Oportunidade> getOportunidades() {
+        return oportunidades;
+    }
+
+    public void setOportunidades(List<Oportunidade> oportunidades) {
+        this.oportunidades = oportunidades;
     }
 }

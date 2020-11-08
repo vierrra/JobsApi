@@ -30,20 +30,6 @@ public class Pessoa {
     @Size(max = 1)
     private String sexo;
 
-    public Pessoa(Long idPessoa,
-                  @NotEmpty(message = "Obrigatório informar nome completo!") @Size(max = 150) String nome,
-                  @NotEmpty(message = "Obrigatório informar email!") @Size(max = 150) @Email(message = "Formato do email inválido") @UniqueElements String email,
-                  Date dataNascimento,
-                  @NotEmpty(message = "Obrigatório informar sexo!") @Size(max = 1) String sexo,
-                  List<Habilidade> habilidades) {
-        this.idPessoa       = idPessoa;
-        this.nome           = nome;
-        this.email          = email;
-        this.dataNascimento = dataNascimento;
-        this.sexo           = sexo;
-        this.habilidades    = habilidades;
-    }
-
     @ManyToMany(cascade = CascadeType.ALL)
     @JsonIgnoreProperties("pessoas")
     @JoinTable(name               = "pessoa_habilidade",

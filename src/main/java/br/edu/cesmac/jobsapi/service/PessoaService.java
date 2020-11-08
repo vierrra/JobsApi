@@ -29,9 +29,14 @@ public class PessoaService {
                     Optional<Habilidade> habilidadeCadastrada = habilidadeRepository.findById(habilidade.getIdHabilidade());
                     habilidadeCadastrada.get().getPessoas().add(pessoa);
                     habilidades.add(habilidadeCadastrada.get());
+                } else {
+                    List<Pessoa> pessoas = new ArrayList<>();
+                    pessoas.add(pessoa);
+                    habilidade.setPessoas(pessoas);
+                    habilidades.add(habilidade);
                 }
             }
-            pessoa.setHabilidades(habilidades);
+            //pessoa.setHabilidades(habilidades);
         }
 
         return pessoaRepository.save(pessoa);

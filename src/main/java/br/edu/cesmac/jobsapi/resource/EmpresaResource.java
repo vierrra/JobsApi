@@ -19,7 +19,7 @@ public class EmpresaResource {
 
     @PostMapping
     public ResponseEntity<Void> saveEmpresa(@Validated @RequestBody Empresa empresa) {
-        Empresa saveEmpresa = empresaService.salveEmpresa(empresa);
+        Empresa saveEmpresa = empresaService.saveEmpresa(empresa);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(saveEmpresa.getIdEmpresa()).toUri();
         return ResponseEntity.created(uri).build();
@@ -29,6 +29,7 @@ public class EmpresaResource {
     private List<Empresa> listAll() {
         return empresaService.listAll();
     }
+
     @GetMapping(value = "/{id}")
     public ResponseEntity<Empresa> searchById(@PathVariable("id") Long idEmpresa) {
         return empresaService.searchById(idEmpresa).map(empresa -> ResponseEntity.ok(empresa)).orElse(ResponseEntity.notFound().build());

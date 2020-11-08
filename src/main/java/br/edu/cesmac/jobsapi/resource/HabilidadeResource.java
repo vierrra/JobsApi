@@ -31,6 +31,7 @@ public class HabilidadeResource {
     private List<Habilidade> listAll() {
         return habilidadeService.listAll();
     }
+
     @GetMapping(value = "/{id}")
     public ResponseEntity<Habilidade> searchById(@PathVariable("id") Long idHabilidade) {
         return habilidadeService.searchById(idHabilidade).map(habilidade -> ResponseEntity.ok(habilidade)).orElse(ResponseEntity.notFound().build());

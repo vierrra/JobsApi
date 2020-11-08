@@ -29,6 +29,7 @@ public class OportunidadeResource {
     private List<Oportunidade> listAll() {
         return oportunidadeService.listAll();
     }
+
     @GetMapping(value = "/{id}")
     public ResponseEntity<Oportunidade> searchById(@PathVariable("id") Long idOportunidade) {
         return oportunidadeService.searchById(idOportunidade).map(oportunidade -> ResponseEntity.ok(oportunidade)).orElse(ResponseEntity.notFound().build());

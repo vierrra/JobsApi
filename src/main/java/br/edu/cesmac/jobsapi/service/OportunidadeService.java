@@ -28,9 +28,14 @@ public class OportunidadeService {
                     Optional<Habilidade> habilidadeCadastrada = habilidadeRepository.findById(habilidade.getIdHabilidade());
                     habilidadeCadastrada.get().getOportunidades().add(oportunidade);
                     habilidades.add(habilidadeCadastrada.get());
+                } else {
+                    List<Oportunidade> oportunidades = new ArrayList<>();
+                    oportunidades.add(oportunidade);
+                    habilidade.setOportunidades(oportunidades);
+                    habilidades.add(habilidade);
                 }
             }
-            oportunidade.setHabilidades(habilidades);
+           // oportunidade.setHabilidades(habilidades);
         }
         return oportunidadeRepository.save(oportunidade);
     }

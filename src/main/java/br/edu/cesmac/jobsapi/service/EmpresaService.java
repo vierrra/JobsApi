@@ -16,7 +16,7 @@ public class EmpresaService {
         this.empresaRepository = empresaRepository;
     }
 
-    public Empresa salveEmpresa(Empresa empresa) {
+    public Empresa saveEmpresa(Empresa empresa) {
 
         return empresaRepository.save(empresa);
     }
