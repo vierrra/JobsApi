@@ -1,24 +1,40 @@
 package br.edu.cesmac.jobsapi.service;
 
+import br.edu.cesmac.jobsapi.domain.Habilidade;
 import br.edu.cesmac.jobsapi.domain.Pessoa;
+import br.edu.cesmac.jobsapi.repository.HabilidadeRepository;
 import br.edu.cesmac.jobsapi.repository.PessoaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class PessoaService {
     private PessoaRepository pessoaRepository;
+    private HabilidadeRepository habilidadeRepository;
 
-    public PessoaService(PessoaRepository pessoaRepository) {
+    public PessoaService(PessoaRepository pessoaRepository, HabilidadeRepository habilidadeRepository) {
 
-        this.pessoaRepository = pessoaRepository;
+        this.pessoaRepository     = pessoaRepository;
+        this.habilidadeRepository = habilidadeRepository;
     }
 
-    public Pessoa savePessoa(Pessoa Pessoa){
+    public Pessoa savePessoa(Pessoa pessoa){
+        if(pessoa.getHabilidades().size() > 0) {
+            List<Habilidade> habilidades =  new ArrayList<>();
+            for(Habilidade habilidade: pessoa.getHabilidades()) {
+                if(habilidade.getIdHabilidade() != null) {
+                    Optional<Habilidade> habilidadeCadastrada = habilidadeRepository.findById(habilidade.getIdHabilidade());
+                    habilidadeCadastrada.get().getPessoas().add(pessoa);
+                    habilidades.add(habilidadeCadastrada.get());
+                }
+            }
+            pessoa.setHabilidades(habilidades);
+        }
 
-        return pessoaRepository.save(Pessoa);
+        return pessoaRepository.save(pessoa);
     }
 
     public List<Pessoa> listAll() {

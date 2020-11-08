@@ -1,9 +1,11 @@
 package br.edu.cesmac.jobsapi.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.Date;
@@ -19,12 +21,28 @@ public class Pessoa {
     private String nome;
     @NotEmpty(message = "Obrigatório informar email!")
     @Size(max = 150)
+    @Email(message = "Formato do email inválido")
+    @UniqueElements
     private String email;
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dataNascimento;
     @NotEmpty(message = "Obrigatório informar sexo!")
     @Size(max = 1)
     private String sexo;
+
+    public Pessoa(Long idPessoa,
+                  @NotEmpty(message = "Obrigatório informar nome completo!") @Size(max = 150) String nome,
+                  @NotEmpty(message = "Obrigatório informar email!") @Size(max = 150) @Email(message = "Formato do email inválido") @UniqueElements String email,
+                  Date dataNascimento,
+                  @NotEmpty(message = "Obrigatório informar sexo!") @Size(max = 1) String sexo,
+                  List<Habilidade> habilidades) {
+        this.idPessoa       = idPessoa;
+        this.nome           = nome;
+        this.email          = email;
+        this.dataNascimento = dataNascimento;
+        this.sexo           = sexo;
+        this.habilidades    = habilidades;
+    }
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JsonIgnoreProperties("pessoas")
@@ -67,6 +85,14 @@ public class Pessoa {
 
     public String getSexo() {
         return sexo;
+    }
+
+    public List<Habilidade> getHabilidades() {
+        return habilidades;
+    }
+
+    public void setHabilidades(List<Habilidade> habilidades) {
+        this.habilidades = habilidades;
     }
 
     public void setSexo(String sexo) {

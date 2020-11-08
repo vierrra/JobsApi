@@ -1,7 +1,6 @@
 package br.edu.cesmac.jobsapi.resource;
 
 import br.edu.cesmac.jobsapi.domain.Empresa;
-import br.edu.cesmac.jobsapi.domain.Pessoa;
 import br.edu.cesmac.jobsapi.service.EmpresaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

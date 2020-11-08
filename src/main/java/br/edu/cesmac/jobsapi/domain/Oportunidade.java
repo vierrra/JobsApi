@@ -24,6 +24,22 @@ public class Oportunidade {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dataTermino;
 
+    public Oportunidade(Long idOportunidade,
+                        @NotEmpty(message = "Obrigatório informar titulo!") @Size(max = 150) String titulo,
+                        @NotEmpty(message = "Obrigatório informar titulo!") String descricao,
+                        Date dataInicio,
+                        Date dataTermino,
+                        Empresa empresa,
+                        List<Habilidade> habilidades) {
+        this.idOportunidade = idOportunidade;
+        this.titulo         = titulo;
+        this.descricao      = descricao;
+        this.dataInicio     = dataInicio;
+        this.dataTermino    = dataTermino;
+        this.empresa        = empresa;
+        this.habilidades    = habilidades;
+    }
+
     @ManyToOne(cascade = CascadeType.ALL)
     private Empresa empresa;
 
